@@ -5,7 +5,7 @@
       "target-branches": [
         "main"
       ],
-      "test-env-docker-stage": "test-dependencies",
+      "test-env-docker-stage": "build",
       "build-test-env-docker-stage-script-path": "tool/build-test-env-docker-stage.sh",
       "test-files-folders": [
         "src",
