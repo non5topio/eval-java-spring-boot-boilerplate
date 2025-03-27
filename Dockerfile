@@ -68,7 +68,7 @@ RUN mvn clean package -DskipTests=true
 
 # Package stage
 # FROM openjdk:21-ea-17-slim-buster
-FROM openjdk:21-ea-17-slim-bookworm
+FROM ubuntu:22.04
 
 WORKDIR /usr/local/lib
 
