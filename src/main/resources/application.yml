@@ -42,7 +42,8 @@ spring:
         globally_quoted_identifiers: true
     open-in-view: false
   datasource:
-    url: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:${POSTGRESQL_PORT:5432}/${POSTGRESQL_DB:app_db}
+    # url: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:${POSTGRESQL_PORT:5432}/${POSTGRESQL_DB:app_db}
+    url: jdbc:postgresql://postgres-container:5432/postgres
     username: ${POSTGRESQL_USER:postgres}
     password: ${POSTGRESQL_PASSWORD:secret}
   data:
