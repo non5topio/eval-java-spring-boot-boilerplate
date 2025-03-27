@@ -60,7 +60,7 @@
 
 # Build stage
 FROM maven:3.8-openjdk-17 AS build
-WORKDIR /home/app
+WORKDIR /app
 COPY src ./src
 COPY pom.xml ./
 
