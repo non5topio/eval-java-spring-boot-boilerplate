@@ -67,7 +67,8 @@ COPY pom.xml ./
 RUN mvn clean package -DskipTests=true
 
 # Package stage
-FROM openjdk:21-ea-17-slim-buster
+# FROM openjdk:21-ea-17-slim-buster
+FROM openjdk:21-ea-17-slim-bookworm
 
 WORKDIR /usr/local/lib
 
