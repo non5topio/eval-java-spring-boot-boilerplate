@@ -58,7 +58,37 @@
 #     redis-server /etc/redis/redis.conf & \
 #     java -jar app.jar
 
+#working- glibc error
 # Build stage
+# FROM maven:3.8-openjdk-17 AS build
+# WORKDIR /app
+# COPY src ./src
+# COPY pom.xml ./
+
+# RUN mvn clean package -DskipTests=true
+
+# # Package stage
+# # FROM openjdk:21-ea-17-slim-buster
+# FROM ubuntu:22.04
+
+# WORKDIR /usr/local/lib
+
+# # Copy JAR from build stage
+# COPY --from=build /home/app/target/*.jar app.jar
+
+# # Install PostgreSQL client
+# RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
+
+# # Copy the wait-for-postgres script
+# COPY wait-for-postgres.sh /usr/local/bin/wait-for-postgres.sh
+# RUN chmod +x /usr/local/bin/wait-for-postgres.sh
+
+# EXPOSE 8080
+
+# # Start application only when PostgreSQL is ready
+# CMD ["/usr/local/bin/wait-for-postgres.sh"]
+
+#claude
 FROM maven:3.8-openjdk-17 AS build
 WORKDIR /app
 COPY src ./src
@@ -66,14 +96,13 @@ COPY pom.xml ./
 
 RUN mvn clean package -DskipTests=true
 
-# Package stage
-# FROM openjdk:21-ea-17-slim-buster
-FROM ubuntu:22.04
+# Use a more compatible base image
+FROM openjdk:17-slim-buster
 
-WORKDIR /usr/local/lib
+WORKDIR /app
 
-# Copy JAR from build stage
-COPY --from=build /home/app/target/*.jar app.jar
+# Correct path for copying JAR
+COPY --from=build /app/target/*.jar app.jar
 
 # Install PostgreSQL client
 RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
@@ -84,5 +113,5 @@ RUN chmod +x /usr/local/bin/wait-for-postgres.sh
 
 EXPOSE 8080
 
-# Start application only when PostgreSQL is ready
-CMD ["/usr/local/bin/wait-for-postgres.sh"]
+# Modify CMD to actually run your Java application
+CMD ["/usr/local/bin/wait-for-postgres.sh", "&&", "java", "-jar", "app.jar"]
