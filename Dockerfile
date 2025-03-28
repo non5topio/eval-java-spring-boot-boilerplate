@@ -98,7 +98,7 @@ RUN mvn clean package -DskipTests=true
 
 # Use a more compatible base image
 # FROM openjdk:17-slim-buster
-FROM eclipse-temurin:17-jdk
+FROM openjdk:17-bookworm
 
 WORKDIR /app
 
