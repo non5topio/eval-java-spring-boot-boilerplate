@@ -97,9 +97,12 @@ COPY pom.xml ./
 RUN mvn clean package -DskipTests=true
 
 # Use a more compatible base image
-FROM openjdk:17-slim-buster
+# FROM openjdk:17-slim-buster
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
+
+# RUN apt-get update && apt-get install -y libc6=2.35-0ubuntu3.1 && rm -rf /var/lib/apt/lists/*
 
 # Correct path for copying JAR
 COPY --from=build /app/target/*.jar app.jar
